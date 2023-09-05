@@ -2,7 +2,7 @@
 """Authorize authentication
 """
 
-from typing import List
+from typing import List, TypeVar
 from flask import request
 
 
@@ -33,7 +33,7 @@ class Auth:
         """
         return None
 
-    def current_user(self, request=None) -> str:
+    def current_user(self, request=None) -> TypeVar('User'):
         """
         Placeholder method for getting the current user.
 
