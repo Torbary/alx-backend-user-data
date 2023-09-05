@@ -2,12 +2,12 @@
 """Authorize authentication
 """
 
-
+from typing import List
 from flask import request
 
 
 class Auth:
-    def require_auth(self, path: str, excluded_paths: list) -> bool:
+    def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """
         Placeholder method for authentication requirement.
 
@@ -33,7 +33,7 @@ class Auth:
         """
         return None
 
-    def current_user(self, request=None):
+    def current_user(self, request=None) -> str:
         """
         Placeholder method for getting the current user.
 
