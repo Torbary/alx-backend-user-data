@@ -40,7 +40,6 @@ class BasicAuth(Auth):
             except (binascii.Error, UnicodeDecodeError):
                 return None
 
-
     def extract_user_credentials(
             self,
             decoded_base64_authorization_header: str,
