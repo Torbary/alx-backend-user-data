@@ -4,7 +4,7 @@
 from .auth import Auth
 from typing import List
 import uuid
-
+from models.user import User
 
 class SessionAuth(Auth):
     """session authentication
@@ -26,3 +26,14 @@ class SessionAuth(Auth):
         """Get USER ID bases on a Session ID"""
         if type(session_id) is str:
             return self.user_id_by_session_id.get(session_id)
+    
+    def current_user(self, request=None):
+        """return a user instnace based on a cookie value (overload)"""
+        if request:
+            session_cookie = self.session_cookie(request)
+            if session_cookie:
+                user_id = self.user_id_for_session_id(session_cookie)
+                if user_id:
+                    user = User.get(user_id)
+                    return user
+        return None
