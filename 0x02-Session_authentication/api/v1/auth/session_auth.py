@@ -24,8 +24,5 @@ class SessionAuth(Auth):
 
     def user_id_for_session_id(self, session_id: str = None) -> str:
         """Get USER ID bases on a Session ID"""
-        if session_id is None or not isinstance(session_id, str):
-            return None
-
-        # Use .get() to sccess the user id Based on the session ID
-        return self.user_id_by_session_id.get(session_id, None)
+        if type(session_id) is str:
+            return self.user_id_by_session_id.get(session_id)
