@@ -21,3 +21,11 @@ class SessionAuth(Auth):
         # Store the user_id in the dictionary using the session ID as the Key
         self.user_id_by_session_id[session_id] = user_id
         return session_id
+
+    def user_id_for_session_id(self, session_id: str = None) -> str:
+        """Get USER ID bases on a Session ID"""
+        if session_id is None or not isinstance(session_id, str):
+            return None
+
+        # Use .get() to sccess the user id Based on the session ID
+        return self.user_id_by_session_id.get(session_id, None)
