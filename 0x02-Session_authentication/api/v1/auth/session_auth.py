@@ -6,6 +6,7 @@ from typing import List
 import uuid
 from models.user import User
 
+
 class SessionAuth(Auth):
     """session authentication
     """
@@ -26,7 +27,7 @@ class SessionAuth(Auth):
         """Get USER ID bases on a Session ID"""
         if type(session_id) is str:
             return self.user_id_by_session_id.get(session_id)
-    
+
     def current_user(self, request=None):
         """return a user instnace based on a cookie value (overload)"""
         if request:
