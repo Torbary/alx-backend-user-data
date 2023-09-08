@@ -2,6 +2,7 @@
 """Session authentication module for the API
 """
 import os
+from typing import Tuple
 from flask import request, jsonify, abort
 from models.user import User
 from api.v1.views import app_views
@@ -31,3 +32,13 @@ def session_auth_login():
     response = jsonify(user.to_json())
     response.set_cookie(os.getenv("SESSION_NAME"), session_id)
     return response, 200
+
+@app_views.route("/auth_session/logout", methods=["DELETE"],
+                strict_slashes=False)
+    def logout() -> Tuple[str, int]:
+        """Delete /api/v1/auth_session/logout"""
+        from api.v1.app import auth
+        is_destroyed = auth.destroy_session(request)
+        if not is_destroyed:
+            abort(404)
+        return jsonify({})
