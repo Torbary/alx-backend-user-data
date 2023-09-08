@@ -39,7 +39,7 @@ class SessionAuth(Auth):
                     return user
         return None
 
-     def destroy_session(self, request=None):
+    def destroy_session(self, request=None):
         """Destroys an authenticated session.
         """
         session_id = self.session_cookie(request)
