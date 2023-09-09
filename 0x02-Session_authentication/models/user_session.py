@@ -19,4 +19,3 @@ class UserSession(Base):
     def __init__(self, *args: List, **kwargs: Dict) -> None:
         """Initializes UserSession"""
         super().__init__(*args, **kwargs)
-

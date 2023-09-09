@@ -1,19 +1,22 @@
 #!/usr/bin/env python3
 """Session auth wtih DB storage"""
 
-from api.v1.auth.session_exp_auth import SessionExpAuth
 from models.user_session import UserSession
-from models.user import User
+from .session_exp_auth import SessionExpAuth
 
 
 class SessionDBAuth(SessionExpAuth):
     """Session authentication with database storage."""
 
-    def create_session(self, user_id=None):
+    def create_session(self, user_id=None) -> str:
         """Create a Session ID and store it in the database."""
         session_id = super().create_session(user_id)
-        if session_id:
-            new_session = UserSession(user_id=user_id, session_id=session_id)
+        if type(session_id) == str:
+            kwargs = {
+                "user_id": user_id,
+                "session_id": session_id,
+            }
+            new_session = UserSession(**kwargs)
             new_session.save()
         return session_id
 
@@ -26,7 +29,7 @@ class SessionDBAuth(SessionExpAuth):
             return user_session[0].user_id
         return None
 
-    def destroy_session(self, request=None):
+    def destroy_session(self, request=None) -> bool:
         """Destroy the UserSession from the database based on Session ID."""
         if request:
             session_id = self.session_cookie(request)
