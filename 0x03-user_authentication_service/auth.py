@@ -4,9 +4,11 @@ Main file
 """
 
 import bcrypt
-from sqlalchemy import False_  # Import bcrypt library
+from sqlalchemy import False_
+from sqlalchemy.orm import session  # Import bcrypt library
 from db import DB, NoResultFound, except_
 from user import User
+from uuid import uuid4
 
 
 def _hash_password(password: str) -> bytes:
@@ -61,3 +63,15 @@ class Auth:
         except NoResultFound:
             return False
         return False
+
+    def create_session(self, email: str) -> str:
+        """create session for a user"""
+        try:
+            user = self._db.find_user_by(email=email)
+        except NoResultFound:
+            return None
+        if user is None:
+            return None
+        session_id = _generate_uuid()
+        self._db.update_user(user.id, session_id=session_id)
+        return session_id
