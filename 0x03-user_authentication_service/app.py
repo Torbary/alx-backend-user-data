@@ -41,6 +41,7 @@ def register_user() -> str:
 
     return jsonify(response), status_code
 
+
 @app.route("/sessions", methods=["POST"], strict_slashes=False)
 def login() -> str:
     """POST /sessions
